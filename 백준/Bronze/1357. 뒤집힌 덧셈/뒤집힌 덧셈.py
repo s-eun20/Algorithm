@@ -1,0 +1,5 @@
+num1,num2 = input().split()
+reverse_num1 = int(num1[::-1])
+reverse_num2 = int(num2[::-1])
+result = str(reverse_num1 + reverse_num2)
+print(int(result[::-1]))
