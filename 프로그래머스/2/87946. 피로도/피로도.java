@@ -1,29 +1,24 @@
-import java.util.*;
-
-class Solution {
-    
-    public int answer = 0;
-    public boolean[] visited;
-    
-    public int solution(int k, int[][] dungeons) {
-        visited = new boolean[dungeons.length];
+public class Solution {
+    int answer = -1;
+    public int solution(int k,int[][] dungeons) {
         
-        dfs(0,k,dungeons);
-        
+        int n = dungeons.length;
+        boolean[] visited =  new boolean[n];
+        backtrack(visited,n,k,dungeons,0);
         return answer;
     }
-    
-    public void dfs(int stage, int k, int[][] dungeons){
-        
-        answer = Math.max(answer,stage);
-        
-        for(int i = 0; i < dungeons.length; i++){
-            if(visited[i] == false && k >= dungeons[i][0]){
+
+    public void backtrack(boolean[] visited, int n,int k, int[][] dungeons, int cnt) {
+        if(cnt > answer) {
+            answer = cnt;
+        }
+        //recursive call
+        for(int i=0; i<n; i++) {
+            if(k >= dungeons[i][0] && !visited[i]) {
                 visited[i] = true;
-                dfs(stage+1,k-dungeons[i][1],dungeons);
-                visited[i] = false;
+                backtrack(visited,n,k-dungeons[i][1],dungeons,cnt+1);
+                visited[i]=false;
             }
         }
     }
-    
 }
