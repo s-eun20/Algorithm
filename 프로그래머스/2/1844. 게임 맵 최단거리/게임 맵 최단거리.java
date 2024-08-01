@@ -1,49 +1,41 @@
 import java.util.*;
 
 class Solution {
-    int[] dr = {0, 0, 1, -1};
-    int[] dc = {1, -1, 0, 0};
-    
     public int solution(int[][] maps) {
-        int rowLength = maps.length;
-        int colLength = maps[0].length;
-        boolean[][] visited = new boolean[rowLength][colLength];
-        
-        int result = bfs(maps, visited);
-        return result;
-    }
-    
-    public int bfs(int[][] maps, boolean[][] visited) {
-        int rowLength = maps.length;
-        int colLength = maps[0].length;
+        int n = maps.length;
+        int m = maps[0].length;
+        boolean[][] visited = new boolean[n][m];
         
         Queue<int[]> queue = new ArrayDeque<>();
-        queue.offer(new int[]{0, 0, 1}); // {row, col, distance}
-        visited[0][0] = true;
+        queue.add(new int[]{0,0,1});
         
-        while (!queue.isEmpty()) {
-            int[] cur = queue.poll();
-            int r = cur[0];
-            int c = cur[1];
-            int dist = cur[2];
+        int [] dr = {0,0,-1,1};
+        int [] dc = {1,-1,0,0};
+        
+        while(!queue.isEmpty()) {
+            int [] current = queue.poll();
+            int r = current[0];
+            int c = current[1];
+            int dist = current[2];
             
-            if (r == rowLength - 1 && c == colLength - 1) {
-                return dist; // Reached the destination
+            if(r==n-1 && c==m-1) {
+                return dist;
             }
             
-            for (int i = 0; i < 4; i++) {
-                int nextRow = r + dr[i];
-                int nextCol = c + dc[i];
+            for(int d=0; d<4; d++) {
+                int nr = r+dr[d];
+                int nc = c+dc[d];
                 
-                if (nextRow >= 0 && nextRow < rowLength && nextCol >= 0 && nextCol < colLength) {
-                    if (maps[nextRow][nextCol] == 1 && !visited[nextRow][nextCol]) {
-                        queue.offer(new int[]{nextRow, nextCol, dist + 1});
-                        visited[nextRow][nextCol] = true;
+                if(nr>=0 && nr<n && nc>=0 && nc<m && maps[nr][nc]==1) {
+                    if(!visited[nr][nc]) {
+                        visited[nr][nc] = true;
+                        queue.add(new int[]{nr,nc,dist+1});
+                        
                     }
                 }
             }
         }
-        
-        return -1; // No path found
+        return -1;
     }
+    
 }
