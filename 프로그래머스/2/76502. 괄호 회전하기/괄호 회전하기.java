@@ -1,21 +1,30 @@
+import java.util.*;
 class Solution {
     public int solution(String s) {
-      int answer = 0;
-        for(int i=0;i<s.length();i++){
-            String first=s.substring(0,1);
-            String last=s.substring(1);
-            s=last+first;
-            String chk=new String(s);
-            int result=1;
-
-            while (chk.contains("()")||chk.contains("[]")||chk.contains("{}")){
-                chk = chk.replace("()", "");
-                chk = chk.replace("[]", "");
-                chk = chk.replace("{}", "");
-            }
-            if(chk.length()>0) result=0;
-            answer+=result;
+        String sb = s+s;
+        int answer = 0;
+        
+        for(int i=0; i<s.length(); i++) {
+            if(isValid(sb.substring(i,s.length()+i))) answer++;
         }
         return answer;
+    }
+    private boolean isValid(String s) {
+        Deque<Character> stack = new ArrayDeque<>();
+        
+        for(char current: s.toCharArray()) {
+            if(current == '(' || current == '{' || current == '[') {
+                stack.push(current);
+            } else {
+                if(stack.isEmpty()) return false;
+                
+                char target = stack.pop();
+                
+                if((target=='(' && current!=')') || (target=='[' && current!=']') || (target=='{' && current!='}')) {
+                    return false;
+                }
+            }
+        }
+        return stack.isEmpty();
     }
 }
