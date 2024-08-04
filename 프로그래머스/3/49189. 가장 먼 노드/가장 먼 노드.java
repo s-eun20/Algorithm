@@ -1,46 +1,40 @@
 import java.util.*;
 class Solution {
-    ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
     public int solution(int n, int[][] edge) {
-        for(int i=0; i<=n; i++) graph.add(new ArrayList<>());
+        Map<Integer, List<Integer>> graph = new HashMap<>();
         
-        for(int[] i : edge) {
-            int v = i[0];
-            int w = i[1];
-            graph.get(v).add(w);
-            graph.get(w).add(v);
+        for(int i=0; i<=n; i++) {
+            graph.put(i,new ArrayList<>());
         }
         
-        boolean [] visit = new boolean[n+1];
-        return bfs(graph,n,visit);
-    }
-    public static int bfs(ArrayList<ArrayList<Integer>> graph, int n,boolean[] visit) {
-        Queue<int[]> queue = new LinkedList<>();
-        int answer = 0;
+        for(int [] e : edge) {
+            graph.get(e[0]).add(e[1]);
+            graph.get(e[1]).add(e[0]);
+        }
         
+        boolean [] visited = new boolean[n+1];
+        Queue<int[]> queue = new ArrayDeque<>();
         queue.add(new int[]{1,0});
-        visit[1] = true;
-        int maxDepth = 0;
+        visited[1] = true;
+        
+        int maxDist = 0; int count = 0;
         
         while(!queue.isEmpty()) {
             int [] cur = queue.poll();
-            int v= cur[0];
-            int depth = cur[1];
             
-            if(maxDepth==depth) answer++;
-            else if(maxDepth < depth) {
-                maxDepth = depth;
-                answer=1;
+            if(maxDist < cur[1]) {
+                maxDist = cur[1];
+                count = 1;
+            } else if(maxDist==cur[1]) {
+                count++;
             }
             
-            for(int i=0; i<graph.get(v).size(); i++) {
-                int w = graph.get(v).get(i);
-                if(!visit[w]) {
-                    queue.add(new int[]{w,depth+1});
-                    visit[w] = true;
-                }
+            for(int next : graph.get(cur[0])) {
+                if(visited[next]) continue;
+                visited[next] = true;
+                queue.add(new int[]{next,cur[1]+1});
             }
         }
-        return answer;
+        return count;
     }
 }
