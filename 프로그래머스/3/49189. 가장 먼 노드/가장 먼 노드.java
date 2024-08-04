@@ -1,7 +1,7 @@
 import java.util.*;
 class Solution {
     public int solution(int n, int[][] edge) {
-        Map<Integer, List<Integer>> graph = new HashMap<>();
+        Map<Integer,List<Integer>> graph = new HashMap<>();
         
         for(int i=0; i<=n; i++) {
             graph.put(i,new ArrayList<>());
@@ -16,16 +16,13 @@ class Solution {
         Queue<int[]> queue = new ArrayDeque<>();
         queue.add(new int[]{1,0});
         visited[1] = true;
-        
-        int maxDist = 0; int count = 0;
-        
+        int maxDist = 0; int count=0;
         while(!queue.isEmpty()) {
             int [] cur = queue.poll();
-            
             if(maxDist < cur[1]) {
                 maxDist = cur[1];
                 count = 1;
-            } else if(maxDist==cur[1]) {
+            } else if(maxDist == cur[1]) {
                 count++;
             }
             
@@ -33,7 +30,9 @@ class Solution {
                 if(visited[next]) continue;
                 visited[next] = true;
                 queue.add(new int[]{next,cur[1]+1});
+                
             }
+            
         }
         return count;
     }
