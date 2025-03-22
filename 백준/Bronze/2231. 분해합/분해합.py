@@ -2,11 +2,15 @@ num = int(input())
 
 result = 0
 
-for i in range(1,num):
-    d_sum = sum(map(int,str(i)))
+for i in range(num):
+    sum_d = sum(map(int,str(i)))
     
-    if i + d_sum == num :
+    if i + sum_d == num :
         result = i
         break
         
+        
 print(result)
+    
+    
+    
