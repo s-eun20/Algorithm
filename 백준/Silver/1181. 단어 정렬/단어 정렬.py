@@ -1,13 +1,13 @@
-n=int(input())
+N=int(input())
 
-eng=[]
-for i in range(n) :
-    eng.append(input())
+str_list = []
+
+for i in range(N):
+    str_list.append(input())
     
-set_eng=set(eng)
-eng=list(set_eng)
-eng.sort()
-eng.sort(key=len)
+    
+str_list = sorted(set(str_list), key=lambda x: (len(x), x))  
 
-for i in eng :
-    print(i)
+# 출력
+for word in str_list:
+    print(word)
