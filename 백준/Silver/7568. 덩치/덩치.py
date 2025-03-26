@@ -1,14 +1,14 @@
-num = int(input())
+n = int(input())
 
-a=[]
+sizes = []
 
-for _ in range(num) :
-  w,h = map(int,input().split())
-  a.append((w,h))
+for _ in range(n):
+    a,b = map(int,input().split())
+    sizes.append((a,b))
 
-for i in a :
-  rank = 1
-  for j in a :
-    if i[0] < j[0] and i[1] < j[1] :
-      rank+=1
-  print(rank,end=' ')
+for i in sizes:
+    rank = 1
+    for j in sizes:
+        if i[0] < j[0] and i[1]<j[1]:
+            rank +=1
+    print(rank,end=" ")
