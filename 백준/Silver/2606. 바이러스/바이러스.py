@@ -1,21 +1,23 @@
-n = int(input())
-m = int(input())
+import sys
+
+n = int(sys.stdin.readline())
+m = int(sys.stdin.readline())
 
 graph = [[] for _ in range(n+1)]
 
 for i in range(m):
-    x, y = map(int, input().split())
+    a,b = map(int,sys.stdin.readline().split())
+    graph[a].append(b)
+    graph[b].append(a)
 
-    graph[x].append(y)
-    graph[y].append(x)
-
-visit = [0] * (n+1)
-
-def dfs(graph, v, visited):
-    visit[v] = 1
+visited = [False]*(n+1)
+def dfs(graph,v,visited):
+    visited[v] = True
+    
     for i in graph[v]:
-        if visit[i] == 0:
-            dfs(graph, i, visited)
+        if not visited[i]:
+            dfs(graph,i,visited)
 
-dfs(graph, 1, visit)
-print(visit.count(1) - 1)
+dfs(graph,1,visited)
+print(visited.count(True)-1)
+    
