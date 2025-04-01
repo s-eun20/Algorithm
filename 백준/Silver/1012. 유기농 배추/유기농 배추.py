@@ -1,38 +1,38 @@
+import sys
+from collections import deque
 
-T = int(input())
+T = int(sys.stdin.readline())
 
-dx = [1,-1,0,0]
+dx = [-1,1,0,0]
 dy = [0,0,-1,1]
 
-def bfs(x,y) :
-  queue = [(x,y)]
-  graph[x][y] = 0
+def bfs(x,y,N,M,ground,visited):
+    queue = deque()
+    queue.append((x,y))
+    visited[x][y] = True
+    while queue :
+        a,b = queue.popleft()
+        
+        for i in range(4):
+            nx,ny = a+dx[i],b+dy[i]
+            if 0<=nx<N and 0<=ny<M and not visited[nx][ny] and ground[nx][ny]==1:
+                visited[nx][ny]=True
+                queue.append((nx,ny))
 
-  while queue :
-    x, y = queue.pop(0)
-    for i in range(4) :
-      nx = x + dx[i]
-      ny = y + dy[i]
-
-      if nx < 0 or nx >= m or ny < 0 or ny >= n :
-        continue
-      if graph[nx][ny] == 1 :
-        queue.append((nx,ny))
-        graph[nx][ny] = 0
-
-for i in range(T) :
-  m,n,k  = map(int, input().split())
-  graph = [[0] * n for _ in range(m)]
-  cnt = 0
-
-  for _ in range(k) :
-    x,y = map(int,input().split())
-    graph[x][y] = 1
-
-  for i in range(m) :
-    for j in range(n) :
-      if graph[i][j] == 1 :
-        bfs(i,j)
-        cnt += 1
-
-  print(cnt)
+for _ in range(T):
+    M,N,K = map(int,sys.stdin.readline().split())
+    ground = [[0]*M for _ in range(N)]
+    visited = [[False]*M for _ in range(N)]
+    
+    for i in range(K):
+        x,y = map(int,sys.stdin.readline().split())
+        ground[y][x] = 1
+        
+    worm_count = 0
+    
+    for i in range(N):
+        for j in range(M):
+            if ground[i][j] == 1 and not visited[i][j]:
+                bfs(i,j,N,M,ground,visited)
+                worm_count+=1
+    print(worm_count)
