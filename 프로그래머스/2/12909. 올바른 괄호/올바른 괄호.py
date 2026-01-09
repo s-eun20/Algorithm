@@ -1,15 +1,15 @@
+
 def solution(s):
     stack = []
-    for i in s :
-        if i == "(" :
+    
+    for i in s:
+        if i == "(":
             stack.append(i)
-        elif i == ")" :
-            if stack :
-                stack.pop()
-            else :
+        else :
+            if not stack :
                 return False
-            
-    if stack :
-        return False
-    else :
+            stack.pop()
+    if not stack :
         return True
+    return False
+   
