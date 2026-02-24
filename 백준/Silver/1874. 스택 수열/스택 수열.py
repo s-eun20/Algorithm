@@ -1,26 +1,28 @@
-n = int(input())
+import sys
+
+n = int(sys.stdin.readline())
 stack = []
-result = []
-current = 1
-possible = True
-for _ in range(n):
-    num = int(input())
+result = [] # +,- 저장
+current = 1 # 현재 Push 숫자
+possible = True # 가능한지 여부
+
+for _ in range(n) :
+    target = int(sys.stdin.readline())
     
-    while current <= num:
+    while current <= target :
         stack.append(current)
         result.append("+")
-        current +=1
-        
-        
-    if stack[-1] == num :
+        current+=1
+    if stack and stack[-1] == target :
         stack.pop()
         result.append("-")
-    else:
+    else :
         possible = False
         break
-    
-if possible :
+        
+if possible:
     print("\n".join(result))
 else :
     print("NO")
         
+
