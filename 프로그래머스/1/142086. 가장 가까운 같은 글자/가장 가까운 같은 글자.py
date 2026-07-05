@@ -1,13 +1,14 @@
 def solution(s):
-    last = {}
+    words = {}
     result = []
     
-    for i, char in enumerate(s) :
-        if char in last :
-            result.append(i-last[char])
-        else :
+    for i,word in enumerate(s) :
+        if word in words :
+            result.append(i - words[word])
+        else:
             result.append(-1)
-        last[char] = i
-        
+            
+        words[word] = i
         
     return result
+    
