@@ -1,6 +1,9 @@
 def solution(nums):
     
-    set_data = set(nums)
-    list_data = list(set_data)
+    set_nums = set(nums)
+    len_nums = len(set_nums)
     
-    return min(len(list_data), len(nums) // 2)
+    return min(len(nums)//2 , len_nums)
+
+
+# 중복제거와 몇마리인지 중요ㅛ함
