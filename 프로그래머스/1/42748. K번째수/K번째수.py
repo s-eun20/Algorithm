@@ -1,9 +1,9 @@
 def solution(array, commands):
     answer = []
-
-    for i,j,k in commands:
-        array2 = array[i-1:j]
-        array2.sort()
-        answer.append(array2[k-1])
+    for command in commands :
+        i,j,k = command
+        slice_list = array[i-1:j]
+        slice_list.sort()
+        answer.append(slice_list[k-1])
             
     return answer
