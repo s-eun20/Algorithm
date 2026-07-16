@@ -1,16 +1,13 @@
 def solution(clothes):
-    type = {}
-    answer = 1
+    dic = {}
     
     for cloth in clothes :
-        if cloth[1] in type :
-            type[cloth[1]] +=1
-        else :
-            type[cloth[1]] =1
+        dic[cloth[1]] = dic.get(cloth[1],0) + 1 
         
-    for key,value in type.items() :
-        answer *= value+1
+    answer = 1
+    
+    for value in dic.values() :
+        
+        answer *= (value + 1)
         
     return answer - 1
-               
-    
