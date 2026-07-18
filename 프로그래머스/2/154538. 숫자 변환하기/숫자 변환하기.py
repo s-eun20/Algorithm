@@ -1,26 +1,21 @@
+from collections import deque
 def solution(x, y, n):
-    INF = 1000001
+    queue = deque()
+    queue.append((x,0))
     
-    dp = [INF] * (y+1)
-    dp[x] = 0
+    visited = [False] * (y+1)
+    visited[x] = True
     
-    for i in range(x,y+1) :
-        if dp[i] == INF :
-            continue
+    while queue :
+        num,cnt = queue.popleft()
         
-        if i + n <= y :
-            dp[i+n] = min(dp[i+n], dp[i] + 1)
-            
-        if i*2 <= y :
-            dp[i*2] =min(dp[i*2], dp[i] + 1)
-            
-        if i * 3 <= y :
-            dp[i*3] =min(dp[i*3], dp[i] + 1)
-            
-    return dp[y] if dp[y] != INF else -1
-    
-    # 최소 - > bfs !!!!
-    # 이문제는 dp가 더 유명
-    # 이미 계산한 결과를 저장해서 다시 계산하지 않는 것
-    # if x = 10, y = 40, n = 5
-    # dp[10] = 0 dp[15] = 1, dp[20] = 1, dp[30] = 1
+        if num == y :
+            return cnt
+        
+        for nxt in (num+n,num*2,num*3) :
+            if nxt <=y and not visited[nxt] :
+                visited[nxt] = True
+                queue.append((nxt,cnt+1))
+                
+                
+    return -1
