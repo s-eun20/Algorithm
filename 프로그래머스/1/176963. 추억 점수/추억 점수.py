@@ -1,16 +1,15 @@
 def solution(name, yearning, photo):
-    count = {}
-    result = []
+    answer = []
+    score = {}
     
     for i in range(len(name)) :
-        count[name[i]] = yearning[i]
+        score[name[i]] = yearning[i]
         
     for p in photo :
-        num = 0
-        for word in p :
-            if word in count.keys() :
-                num += count[word]
-        result.append(num)
-            
-    return result
-            
+        total = 0
+        for person in p :
+            if person in score :
+                total += score[person]
+        
+        answer.append(total)
+    return answer
